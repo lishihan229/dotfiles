@@ -18,3 +18,8 @@ To set up these dotfiles on a new machine:
 ## Managed Files
 
 - `.bashrc`: Bash shell configuration.
+- `.gitconfig`: Git configuration.
+- `.tmux.conf` and `.config/tmux/tmux.conf`: tmux configuration.
+- `.config/i3/config`: i3 window-manager configuration.
+- `.codex/AGENTS.md`: personal Codex working conventions.
+- `KEYBINDINGS.md`: reference for i3 and tmux shortcuts.

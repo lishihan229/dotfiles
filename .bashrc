@@ -130,3 +130,7 @@ function y {
     fi
     rm -f "$tmp"
 }
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)

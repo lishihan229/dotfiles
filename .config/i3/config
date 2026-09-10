@@ -23,6 +23,9 @@ font pango:monospace 11
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
+# Daily workspace setup (once per i3 login; see dotfiles docs/startup.md).
+exec --no-startup-id ~/.local/bin/start-workday
+
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 

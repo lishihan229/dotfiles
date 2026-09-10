@@ -1,0 +1,31 @@
+#!/bin/sh
+# Install the daily i3 startup setup from any clone location.
+set -eu
+repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+config_dir=${XDG_CONFIG_HOME:-"$HOME/.config"}/i3
+script_path=$HOME/.local/bin/start-workday
+config_path=$config_dir/config
+mkdir -p "$HOME/.local/bin" "$config_dir"
+backup_dir=
+backup() {
+    if [ -z "$backup_dir" ]; then
+        backup_dir=$(mktemp -d "$HOME/.local/share-workday-backup.XXXXXX")
+        printf 'Backups: %s\n' "$backup_dir"
+    fi
+    cp -p "$1" "$backup_dir/$2"
+}
+if [ -e "$script_path" ] || [ -L "$script_path" ]; then
+    if [ "$(readlink "$script_path" || true)" != "$repo_dir/.local/bin/start-workday" ]; then
+        backup "$script_path" start-workday
+        ln -sf "$repo_dir/.local/bin/start-workday" "$script_path"
+    fi
+else
+    ln -s "$repo_dir/.local/bin/start-workday" "$script_path"
+fi
+if [ ! -e "$config_path" ]; then
+    cp "$repo_dir/.config/i3/config" "$config_path"
+elif ! grep -Eq '^[[:space:]]*exec[[:space:]]+--no-startup-id[[:space:]]+~/.local/bin/start-workday[[:space:]]*$' "$config_path"; then
+    backup "$config_path" i3-config
+    printf '\n# Daily workspace setup; see dotfiles/docs/startup.md\nexec --no-startup-id ~/.local/bin/start-workday\n' >> "$config_path"
+fi
+printf 'Daily startup installed. It runs at your next i3 login.\n'

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -eu
+
+# Keep startup notification enabled so i3 remembers which workspace each
+# application was launched on, even if its window takes a moment to appear.
+i3-msg 'workspace number 1; exec kitty'
+i3-msg 'workspace number 2; exec firefox --new-window'

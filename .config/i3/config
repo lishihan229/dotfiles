@@ -15,6 +15,9 @@ set $mod Mod4
 # is used in the bar {} block below.
 font pango:monospace 11
 
+# Keep window chrome minimal; Polybar shows the focused window title.
+default_border pixel 2
+
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
@@ -22,6 +25,9 @@ font pango:monospace 11
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
+
+# Start the Chinese input method in every i3 login session.
+exec --no-startup-id ibus-daemon -drx
 
 # Daily workspace setup (once per i3 login; see dotfiles docs/startup.md).
 exec --no-startup-id ~/.local/bin/start-workday
@@ -31,7 +37,7 @@ exec --no-startup-id ~/.local/bin/start-workday
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- /home/shihan/.local/bin/lock-screen
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -52,7 +58,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec /home/shihan/.local/kitty.app/bin/kitty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -198,11 +204,16 @@ exec_always --no-startup-id picom
 # Make ksnip float so it doesn't "move" (retile) other windows
 for_window [class="(?i)ksnip"] floating enable
 
+# Keep the Google-synchronised GNOME Calendar as a compact agenda popup.
+for_window [class="gnome-calendar"] floating enable
+for_window [class="gnome-calendar"] resize set 760 560 px
+for_window [class="gnome-calendar"] move position center
+
 # Take a screenshot with ksnip (with a 0.5s delay for picom)
 bindsym Print exec --no-startup-id sleep 0.5 && ksnip -r
 
 # Set the wallpaper
-exec_always --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/mywallpaper.png
+exec_always --no-startup-id feh --bg-scale ~/Documents/Pictures/Wallpapers/mywallpaper.png
 
 # Always start autotiling
 exec_always --no-startup-id python ~/.config/i3/autotiling/autotiling/main.py

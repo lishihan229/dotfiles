@@ -1,0 +1,3 @@
+[submodule ".config/i3/autotiling"]
+	path = .config/i3/autotiling
+	url = https://github.com/nwg-piotr/autotiling.git

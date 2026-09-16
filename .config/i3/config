@@ -60,6 +60,9 @@ tiling_drag modifier titlebar
 # start a terminal
 bindsym $mod+Return exec /home/shihan/.local/kitty.app/bin/kitty
 
+# Toggle German/Pinyin through the Polybar language script.
+bindsym Control+space exec --no-startup-id ~/.config/polybar/scripts/input-language.sh --toggle
+
 # kill focused window
 bindsym $mod+Shift+q kill
 

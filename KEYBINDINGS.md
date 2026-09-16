@@ -15,6 +15,7 @@ means the Windows/Meta key.
 | `Super+Enter` | Open Kitty terminal |
 | `Super+d` | Open Rofi application launcher |
 | `Super+Shift+q` | Close focused window |
+| `Ctrl+Space` | Toggle between German and Pinyin through the Polybar language script |
 | `Print` | Select a screenshot region with Ksnip |
 
 ### Focus, movement, and layouts

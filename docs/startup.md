@@ -34,6 +34,33 @@ before replacing the entire file: the live configuration currently uses a custom
 lock-screen script and a custom Kitty path that differ from the repository copy.
 These pre-existing differences have not been overwritten by this change.
 
+## Input language switching
+
+The Polybar `language` module displays the active IBus engine and switches
+between German and Pinyin when clicked. The i3 configuration also maps
+`Ctrl+Space` to the same script:
+
+```i3
+bindsym Control+space exec --no-startup-id ~/.config/polybar/scripts/input-language.sh --toggle
+```
+
+Because this binding owns `Ctrl+Space`, remove that key from both IBus trigger
+settings. These commands persist the setting in the current user's dconf
+database:
+
+```sh
+gsettings set org.freedesktop.ibus.general.hotkey triggers "[]"
+gsettings set org.freedesktop.ibus.general.hotkey trigger "['Zenkaku_Hankaku', 'Alt+Kanji', 'Alt+grave', 'Hangul', 'Alt+Release+Alt_R']"
+ibus restart
+```
+
+Check the result with:
+
+```sh
+gsettings get org.freedesktop.ibus.general.hotkey triggers
+gsettings get org.freedesktop.ibus.general.hotkey trigger
+```
+
 The script uses `kitty` and `firefox` from PATH, with no fixed username or clone
 location. Both applications and i3 must be installed.
 

@@ -2,7 +2,7 @@
 
 My personal Linux desktop setup: i3 for keyboard-first window management,
 Polybar for status and controls, and a small collection of scripts that make
-the desktop pleasant for daily work.
+the desktop pleasant for daily work. 
 
 ## Desktop highlights
 
